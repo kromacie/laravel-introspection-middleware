@@ -8,8 +8,8 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use InvalidArgumentException;
-use Kromacie\IntrospectionMiddleware\Repositories\AccessTokenRepositoryInterface;
 use function json_decode;
+use Kromacie\IntrospectionMiddleware\Repositories\AccessTokenRepositoryInterface;
 
 class AuthServer
 {
@@ -34,18 +34,18 @@ class AuthServer
 
         $response = $client->post($this->config['introspect_token'], [
             RequestOptions::BODY => [
-                'token' => $token
+                'token' => $token,
             ],
             RequestOptions::HEADERS => [
                 'Authorization' => 'Bearer ' . $this->getAccessToken(),
                 'Content-Type' => 'application/x-www-form-urlencoded',
-                'Accept' => 'application/json'
-            ]
+                'Accept' => 'application/json',
+            ],
         ]);
 
         $options = json_decode($response->getBody()->getContents(), true);
 
-        if (!$options) {
+        if (! $options) {
             throw new InvalidArgumentException('Malformed response body.');
         }
 
@@ -59,7 +59,7 @@ class AuthServer
     protected function getAccessToken(): string
     {
         return tap($this->accessTokenRepository->find($this->createAccessTokenIdentifier()), function (?string $accessToken) {
-            if (!$accessToken) {
+            if (! $accessToken) {
                 $accessToken = $this->authorize();
 
                 $this->accessTokenRepository->save($this->createAccessTokenIdentifier(), $accessToken);
@@ -81,12 +81,12 @@ class AuthServer
             RequestOptions::BODY => [
                 'client_id' => $this->config['client_id'],
                 'client_secret' => $this->config['client_secret'],
-                'grant_type' => 'client_credentials'
+                'grant_type' => 'client_credentials',
             ],
             RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/x-www-form-urlencoded',
-            ]
+            ],
         ]);
 
         if (strpos((string) $response->getStatusCode(), '20') !== 0) {
@@ -95,7 +95,7 @@ class AuthServer
 
         $accessToken = json_decode($response->getBody()->getContents(), true)['access_token'] ?? null;
 
-        if (!$accessToken) {
+        if (! $accessToken) {
             throw new InvalidArgumentException('Malformed response body');
         }
 

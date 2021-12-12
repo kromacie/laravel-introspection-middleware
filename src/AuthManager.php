@@ -17,8 +17,10 @@ class AuthManager
     {
         $identifier = $name ?? $this->getDefault();
 
-        return new Client(array_replace_recursive($this->config['servers.' . $identifier],
-            ['server_identifier' => $identifier]));
+        return new Client(array_replace_recursive(
+            $this->config['servers.' . $identifier],
+            ['server_identifier' => $identifier]
+        ));
     }
 
     public function getDefault(): string
