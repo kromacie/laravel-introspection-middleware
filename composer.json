@@ -1,24 +1,27 @@
 {
-    "name": ":vendor_slug/:package_slug",
+    "name": "kromacie/laravel-oauth-introspection-middleware",
     "description": ":package_description",
     "keywords": [
         ":vendor_name",
         "laravel",
         ":package_slug"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/kromacie/laravel-oauth-introspection-middleware",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Maciej",
+            "email": "kromacie@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.0|^7.4",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/cache": "^8.0",
+        "illuminate/contracts": "^8.73",
         "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^8.73"
+        "ext-json": "*"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.10",
@@ -34,13 +37,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Kromacie\\IntrospectionMiddleware\\": "src",
+            "Kromacie\\IntrospectionMiddleware\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Kromacie\\IntrospectionMiddleware\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +57,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+              "IntrospectionMiddlewareServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Skeleton": "Kromacie\\IntrospectionMiddleware\\Facades\\Skeleton"
             }
         }
     },
