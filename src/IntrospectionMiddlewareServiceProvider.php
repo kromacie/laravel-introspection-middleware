@@ -2,22 +2,16 @@
 
 namespace Kromacie\IntrospectionMiddleware;
 
+use Carbon\Laravel\ServiceProvider;
 use Kromacie\IntrospectionMiddleware\Repositories\AccessTokenRepositoryInterface;
 use Kromacie\IntrospectionMiddleware\Repositories\CacheAccessTokenRepository;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class IntrospectionMiddlewareServiceProvider extends PackageServiceProvider
+class IntrospectionMiddlewareServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function register(): void
     {
-        $package
-            ->name('laravel_introspection_middleware')
-            ->hasConfigFile();
-    }
+        $this->mergeConfigFrom("/../config/introspection_middleware.php", "introspection_middleware");
 
-    public function packageRegistered()
-    {
         $this->registerAccessTokenRepository();
     }
 
