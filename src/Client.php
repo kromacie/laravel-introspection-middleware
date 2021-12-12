@@ -14,7 +14,7 @@ class Client
     {
         $this->active = $options['active'] ?? false;
 
-        if (isset($options['scopes']) && !is_array($options['scopes'])) {
+        if (isset($options['scopes']) && ! is_array($options['scopes'])) {
             $options['scopes'] = explode(' ', $options['scopes']);
         }
 

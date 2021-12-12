@@ -25,11 +25,11 @@ class Scopes
 
     public function doesntHaveAny(array $scopes): bool
     {
-        return !$this->hasAny($scopes);
+        return ! $this->hasAny($scopes);
     }
 
     public function doesntHaveAll(array $scopes): bool
     {
-        return !$this->hasAll($scopes);
+        return ! $this->hasAll($scopes);
     }
 }
